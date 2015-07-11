@@ -6,6 +6,7 @@ var app = express();
 var async = require('async');
 var morgan = require('morgan');
 var cps = require('./node_modules/cps-api');
+var bodyParser = require('body-parser');
 var USERNAME = process.env.CON_USERNAME;
 var PASSWORD = process.env.CON_PASSWORD;
 console.log(USERNAME);
@@ -16,7 +17,7 @@ app.set('port', (process.env.PORT || 3000));
 app.use(express.static('./public'));
 app.use(morgan('dev'));
 
-require('./app/routes/routes.js')(app, async, conn, cps);
+require('./app/routes/routes.js')(app, async, conn, cps, bodyParser);
 
 app.listen(app.get('port'), function() {
 	console.log('listening on port ' + app.get('port'));

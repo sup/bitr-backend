@@ -1,10 +1,10 @@
-module.exports = function(app, async, conn, cps) {
+module.exports = function(app, async, conn, cps, bodyParser) {
 
 	app.get('/', function(req, res) {
 		res.sendFile('public/index.html');
 	});
 
-    app.get('/db', function(req, res) { 
+    app.get('/db', function(req, res) {
        
          var id = 1;
         var twitterHandle = "lolbutts";
