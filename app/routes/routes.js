@@ -1,4 +1,4 @@
-module.exports = function(app, async, conn, cps) {
+module.exports = function(app, async, conn, cps, bodyParser) {
 
     app.get('/', function(req, res) {
         res.sendFile('public/index.html');
