@@ -105,10 +105,9 @@
         .done(function(response) {
             for (var i = 0; i < response.length; i++) {
                 var activity = response[i];
-                var vote = activity["vote"];
+                var vote = activity["vote"] === "true";
                 var lat = activity["lat"];
                 var lng = activity["lng"];
-                console.log(lat);
                 var title = "Check it out!";
                 if (vote){
                     var marker = L.marker(new L.LatLng(lat, lng), {
