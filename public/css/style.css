@@ -14,6 +14,7 @@
 body { 
   margin:0; 
   padding:0; 
+  font-family: 'Oswald', sans-serif;
 }
 
 .hero {
@@ -71,7 +72,12 @@ button.download {
 }
 
 button.download:hover {
- background-color: #8E2D32;
+   background-color: #8E2D32;
+}
+
+button {
+   font-family: 'Oswald', sans-serif;
+   letter-spacing: 1px;
 }
 
 .app-info .container {
@@ -136,4 +142,14 @@ button.download:hover {
 
 .lemon-drop {
     width: 100px;
+}
+
+.semi-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+p {
+    font-family: 'Oswald', sans-serif;
 }
