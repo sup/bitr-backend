@@ -140,6 +140,7 @@ module.exports = function(app, async, request, conn, cps, twitter, bodyParser) {
         var lng = req.query.lng;
         var r = req.query.r;
         var search_req = new cps.SearchRequest("  &gt;&lt;circle", 0, 5);
+        search.setDocs(1000);
         search_req.setParam("shapes", "<circle><center>"+lat+" "+lng+"</center><radius>"+r+" mi</radius><coord1_tag_name>lat</coord1_tag_name><coord2_tag_name>lng</coord2_tag_name></circle>");
         // Create search object and output response JSON
         conn.sendRequest(search_req, function(err, response) {
