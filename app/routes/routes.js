@@ -3,16 +3,16 @@ module.exports = function(app, async, request, conn, cps, twitter, bodyParser) {
     ////////////////////////////////////
     ///        LANDING PAGE          ///
     ////////////////////////////////////
-	app.get('/', function(req, res) {
-		res.sendFile('public/index.html');
-	});
+    app.get('/', function(req, res) {
+        res.sendFile('public/index.html');
+    });
  
     /////////////////////////////////////
     ///         CREATE USER           ///
     /////////////////////////////////////
     app.post('/createUser', function(req, res) {
         // Grabs twitter handle of user to create
-        var loggedUser = parseAuth(req.get('Authorization')); 
+        var loggedUser = parseAuth(req.get('Authorization'));
         console.log(loggedUser);
         console.log(twitter);
         var id = loggedUser;
@@ -22,12 +22,12 @@ module.exports = function(app, async, request, conn, cps, twitter, bodyParser) {
         conn.sendRequest(insert_req, function(err, response) {
             if (!err) {
                 // Find their friends
-                var client = new twitter({ 
+                var client = new twitter({
                 });
                 
                var params = {
                     count: 200
-               } 
+               };
 
                client.get('friends/list', params, function(error, tweets, response) {
                     if (!error) {
@@ -35,7 +35,7 @@ module.exports = function(app, async, request, conn, cps, twitter, bodyParser) {
                         for( var i = 0; i< tweets.users.length; i++) {
                             var friendsObj = {
                                 name: tweets.users[i].name ,
-                                id: tweets.users[i].screen_name        
+                                id: tweets.users[i].screen_name
                             };
                             console.log(friendsObj);
                             friendsArray.push(friendsObj);
@@ -52,7 +52,7 @@ module.exports = function(app, async, request, conn, cps, twitter, bodyParser) {
                         console.log("TWITTER ERROR");
                         console.log(error);
                         res.sendStatus(400);
-                    } 
+                    }
                });
             } else {
                 console.log(err);
@@ -77,7 +77,7 @@ module.exports = function(app, async, request, conn, cps, twitter, bodyParser) {
                 console.log('USER DOES NOT EXISTS');
                 res.sendStatus(400);
             }
-        }); 
+        });
     });
 
     /////////////////////////////////////
@@ -94,7 +94,7 @@ module.exports = function(app, async, request, conn, cps, twitter, bodyParser) {
                 console.log('USER DOES NOT EXISTS');
                 res.sendStatus(400);
             }
-        }); 
+        });
     });
 
     /////////////////////////////////////
@@ -268,6 +268,6 @@ module.exports = function(app, async, request, conn, cps, twitter, bodyParser) {
     function parseAuth(loggedUser) {
         var results = loggedUser.split(" ");
         results = results[1];
-        return results;    
-    };
+        return results;
+    }
 };
