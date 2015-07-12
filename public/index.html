@@ -106,6 +106,7 @@
             })
                 // SUCCESS: USE CLUSTERPOINTS
                 .done(function(response) {
+                    // ADD DB POINTS
                     for (var i = 0; i < response.length; i++) {
                         var activity = response[i];
                         var vote = activity["vote"];
@@ -131,7 +132,9 @@
                 // FAILURE: USE SAMPLE DATA POINTS
                 .fail(function(error) {
                     console.log(error);
-                    console.log("Using backup sample data....");
+                })
+                .always(function() {
+                    console.log("complete");
                     for (var i = 0; i < addressPoints.length; i++) {
                         var a = addressPoints[i];
                         console.log(a);
@@ -152,9 +155,6 @@
                         marker.bindPopup(title);
                         markers.addLayer(marker);
                     }
-                })
-                .always(function() {
-                    console.log("complete");
                 });
 
                 map.addLayer(markers);
