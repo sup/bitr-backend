@@ -59,11 +59,19 @@ button.learn-more {
   margin-right:10px;
 }
 
+button.learn-more:hover {
+    background-color: #CB3E45; 
+}
+
 button.download {
   background-color: #AD4F54;
   border-radius: 10px;
   border: 0;
   box-shadow: 0 5px 0 rgba(0, 0, 0, 0.5);
+}
+
+button.download:hover {
+ background-color: #8E2D32;
 }
 
 .app-info .container {
@@ -107,7 +115,7 @@ button.download {
 }
 
 .action-call img {
-  width: 50px;
+  width: 100px;
 }
 
 .action-call button {
@@ -124,4 +132,8 @@ button.download {
 
 #map {
   height: 80vh;
+}
+
+.lemon-drop {
+    width: 100px;
 }

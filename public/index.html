@@ -7,6 +7,7 @@
     <script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <style>
 
@@ -26,7 +27,7 @@
                                 <button class="download">Download</button>
                             </div>
                         </div>
-                        <img class="col-xs-4" src="images/iphone_mock.png"/>
+                        <img class="col-xs-4 animated fadeInUp" src="images/iphone_mock.png"/>
                     </div>
                 </div>
             </div>
@@ -74,7 +75,7 @@
 
             <h2>Discover the bitter, sweet world today…</h2>
 
-            <button>DOWNLOAD NOW</button>
+            <button class="download">DOWNLOAD NOW</button>
 
         </div>
     </section>
@@ -98,7 +99,7 @@
     var markers = new L.MarkerClusterGroup();
     var clusterPoints = []
     $.ajax({
-        url: 'http://bitter.ngrok.com/allactivity',
+        url: 'bitr.me/allactivity',
         type: 'GET'
     })
         // SUCCESS: USE CLUSTERPOINTS
