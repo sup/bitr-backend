@@ -106,7 +106,7 @@
         .done(function(response) {
             for (var i = 0; i < response.length; i++) {
                 var activity = response[i];
-                var vote = activity["vote"] === "true";
+                var vote = activity["vote"];
                 var lat = activity["lat"];
                 var lng = activity["lng"];
                 var title = "Check it out!";
