@@ -110,7 +110,7 @@
                 var lng = activity["lng"];
                 console.log(lat);
                 var title = "Check it out!";
-                if (vote && lat && lng){
+                if (vote){
                     var marker = L.marker(new L.LatLng(lat, lng), {
                         icon: L.mapbox.marker.icon({'marker-symbol': 'circle', 'marker-color': '37B8AF'}),
                         title: title
