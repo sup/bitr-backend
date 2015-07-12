@@ -6,15 +6,20 @@
 /* Open Sans */
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600);
 
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700);
 
 * {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Source Sans', sans-serif;
+  letter-spacing: 0px;
 }
 
 body { 
   margin:0; 
   padding:0; 
-  font-family: 'Oswald', sans-serif;
+}
+
+button {
+  font-weight: 300;
 }
 
 .hero {
@@ -56,12 +61,12 @@ button.learn-more {
   background-color: #f46e75;
   border: 2px solid #ffffff;
   border-radius: 10px;
-  margin-top: 2px;
-  margin-right:10px;
+  margin-right:15px;
 }
 
 button.learn-more:hover {
-    background-color: #CB3E45; 
+    background-color: #ffffff;
+    color: #f46e75; 
 }
 
 button.download {
@@ -72,12 +77,8 @@ button.download {
 }
 
 button.download:hover {
-   background-color: #8E2D32;
-}
-
-button {
-   font-family: 'Oswald', sans-serif;
-   letter-spacing: 1px;
+  background-color: #8E2D32;
+  box-shadow: 0 0 0;
 }
 
 .app-info .container {
@@ -131,6 +132,7 @@ button {
   box-shadow: 0 5px 0 rgba(0, 0, 0, 0.5);
   color: #ffffff;
   padding: 15px;
+  padding-top: 18px;
   width: 240px;
   font-size: 20px;
   margin: 60px;
@@ -146,13 +148,29 @@ button {
 }
 
 .semi-title {
-    font-family: 'Oswald', sans-serif;
     font-weight: 300;
-    letter-spacing: 1px;
 }
 
-p {
-    font-family: 'Oswald', sans-serif;
+.ui-button {
+  background: #37B8AF;
+  color: #FFF;
+  display: block;
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+  z-index:100;
+  text-align:center;
+  border-radius: 100%;
+  width: 84px;
+  border: 0;
+  width: 70px;
+  height: 70px;
+  box-shadow: 0 3px 2px rgba(0,0,0,.5);
+  padding-top: 16px;
+}
+
+.ui-button img {
+  width: 35px;
 }
 
 #phone {

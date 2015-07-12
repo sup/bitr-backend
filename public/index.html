@@ -2,13 +2,12 @@
 <html>
 <head>
     <meta charset=utf-8 />
-    <title>Leaflet Markercluster</title>
+    <title>Bitter LLC.</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Oswald:400,300' rel='stylesheet' type='text/css'> 
     <link href="css/style.css" rel="stylesheet">
     <style>
 
@@ -69,7 +68,9 @@
             <h2 class="semi-title">Connecting Places a Bit at a Time…</h2>
         </div>
 
-        <div id='map'></div>
+        <div id='map'>
+            <a href='#' id='geolocate' class='ui-button'><img src="images/drop_icon2.png"/></a>
+        </div>
 
         <div class="action-call">
             <img class="lemon-drop" src="images/lemon_drop.png"/>
@@ -81,7 +82,8 @@
         </div>
     </section>
 
-
+    <section class="footer">
+    </section>
 
     <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js'></script>
     <script src='js/jquery.min.js'></script>
@@ -90,76 +92,7 @@
 
     <!-- Example data. -->
     <script src="js/sample_data.js"></script>
+    <script src="js/maps.js"></script>
 
-
-    <script>
-        $(document).ready(function() {
-            L.mapbox.accessToken = 'pk.eyJ1IjoiY2hhcmxlc2xhaSIsImEiOiJkNTA0YzU4NzY0YWQ2MzcwYmEwMGU1NmEwZjMwZDllNyJ9.mGudpKLGaugdbRUuNWHc8g';
-            var map = L.mapbox.map('map', 'mapbox.emerald')
-            .setView([27.0, 17.0], 2);
-
-            var markers = new L.MarkerClusterGroup();
-            var clusterPoints = []
-            $.ajax({
-                url: 'http://bitr.me/allactivity',
-                type: 'GET'
-            })
-                // SUCCESS: USE CLUSTERPOINTS
-                .done(function(response) {
-                    // ADD DB POINTS
-                    console.log(response);
-                    for (var i = 0; i < response.length; i++) {
-                        var activity = response[i];
-                        var vote = activity["vote"];
-                        var lat = activity["lat"];
-                        var lng = activity["lng"];
-                        var title = "Check it out!";
-                        if (vote === "true"){
-                            var marker = L.marker(new L.LatLng(lat, lng), {
-                                icon: L.mapbox.marker.icon({'marker-symbol': 'circle', 'marker-color': '37B8AF'}),
-                                title: title
-                            });
-                        }
-                        else {
-                            var marker = L.marker(new L.LatLng(lat, lng), {
-                                icon: L.mapbox.marker.icon({'marker-symbol': 'cross', 'marker-color': 'F17279'}),
-                                title: title
-                            });
-                        }
-                        marker.bindPopup(title);
-                        markers.addLayer(marker);
-                    }
-                })
-                // FAILURE: USE SAMPLE DATA POINTS
-                .fail(function(error) {
-                    console.log(error);
-                })
-                .always(function() {
-                    console.log("complete");
-                    for (var i = 0; i < addressPoints.length; i++) {
-                        var a = addressPoints[i];
-                        console.log(a);
-                        var vote = a[2];
-                        var title = "Check it out!";
-                        if (vote){
-                            var marker = L.marker(new L.LatLng(a[0], a[1]), {
-                                icon: L.mapbox.marker.icon({'marker-symbol': 'circle', 'marker-color': '37B8AF'}),
-                                title: title
-                            });
-                        }
-                        else {
-                            var marker = L.marker(new L.LatLng(a[0], a[1]), {
-                                icon: L.mapbox.marker.icon({'marker-symbol': 'cross', 'marker-color': 'F17279'}),
-                                title: title
-                            });
-                        }
-                        marker.bindPopup(title);
-                        markers.addLayer(marker);
-                    }
-                    map.scrollWheelZoom.disable();
-                    map.addLayer(markers);
-                });
-            });
-        </script>
-    </body>
-    </html>
+</body>
+</html>
