@@ -4,6 +4,8 @@ $(document).ready(function() {
     var map = L.mapbox.map('map', 'mapbox.emerald')
     .setView([27.0, 17.0], 2);
 
+    var myLayer = L.mapbox.featureLayer().addTo(map);
+
 
     if (!navigator.geolocation) {
         geolocate.innerHTML = 'Geolocation is not available';
@@ -16,7 +18,8 @@ $(document).ready(function() {
     }
 
     map.on('locationfound', function(e) {
-        map.fitBounds(e.bounds);
+        // map.fitBounds(e.bounds);
+        map.setView(e.latlng, map.getZoom() - 1);
 
         myLayer.setGeoJSON({
             type: 'Feature',
