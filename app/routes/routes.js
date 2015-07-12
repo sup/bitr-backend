@@ -116,6 +116,7 @@ module.exports = function(app, async, request, conn, cps, twitter, bodyParser) {
         var query_string = "{" + user_string + "}";
         // Create search object and output response JSON
         var search_req = new cps.SearchRequest(query_string);
+        search_req.setDocs(1000);
         conn.sendRequest(search_req, function(err, response) {
             if(!err) {
                 res.send(response.results.document);
