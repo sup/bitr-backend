@@ -5,7 +5,7 @@ random_samples = {
 	"documents": []
 }
 
-for i in range(500):
+for i in range(200):
 	new_sample = {
 		"id": "twitter_handle_ayy"+str(i),
 		"user": "twitter_handle_ayy"+str(i),

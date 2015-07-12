@@ -101,19 +101,20 @@
             var markers = new L.MarkerClusterGroup();
             var clusterPoints = []
             $.ajax({
-                url: 'https://bitr.me/allactivity',
+                url: 'http://bitr.me/allactivity',
                 type: 'GET'
             })
                 // SUCCESS: USE CLUSTERPOINTS
                 .done(function(response) {
                     // ADD DB POINTS
+                    console.log(response);
                     for (var i = 0; i < response.length; i++) {
                         var activity = response[i];
                         var vote = activity["vote"];
                         var lat = activity["lat"];
                         var lng = activity["lng"];
                         var title = "Check it out!";
-                        if (vote){
+                        if (vote === "true"){
                             var marker = L.marker(new L.LatLng(lat, lng), {
                                 icon: L.mapbox.marker.icon({'marker-symbol': 'circle', 'marker-color': '37B8AF'}),
                                 title: title
@@ -127,7 +128,7 @@
                         }
                         marker.bindPopup(title);
                         markers.addLayer(marker);
-                    }    
+                    }
                 })
                 // FAILURE: USE SAMPLE DATA POINTS
                 .fail(function(error) {
@@ -155,10 +156,10 @@
                         marker.bindPopup(title);
                         markers.addLayer(marker);
                     }
+                    map.scrollWheelZoom.disable();
+                    map.addLayer(markers);
                 });
-                map.scrollWheelZoom.disable();
-                map.addLayer(markers);
-        });
+            });
         </script>
     </body>
     </html>
