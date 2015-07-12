@@ -113,6 +113,7 @@ button.download:hover {
 .map-info h2 {
   color: #ffffff;
   font-weight: 100;
+  text-shadow: 0 1px 0 rgba(0,0,0,.2);
 }
 
 .action-call {
@@ -123,6 +124,10 @@ button.download:hover {
 
 .action-call img {
   width: 100px;
+}
+
+.info {
+  margin-top: 40px;
 }
 
 .action-call button {
@@ -175,8 +180,4 @@ button.download:hover {
 
 #phone {
     -webkit-animation-duration: 1s;
-}
-
-#under-title {
-    -webkit-animation-duration: 100m;
 }
