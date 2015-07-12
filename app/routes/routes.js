@@ -49,6 +49,8 @@ module.exports = function(app, async, request, conn, cps, twitter, bodyParser) {
                     console.log('USER EXISTS SENDING INFORMATION');
                     if(response) {
                         u.activities = response.results.document;
+                    } else {
+                        u.activities = [];   
                     }
                     res.send(u);
                 });
