@@ -43,7 +43,7 @@ module.exports = function(app, async, request, conn, cps, twitter, bodyParser) {
         conn.sendRequest(search_req, function (err, response) {
             if (!err) {
                 console.log('USER EXISTS SENDING INFORMATION');
-                res.send(response.results.document[0]).sendStatus(200);
+                res.send(response.results.document[0]);
             } else {
                 console.log('USER DOES NOT EXISTS');
                 res.sendStatus(400);
