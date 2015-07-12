@@ -156,5 +156,9 @@ p {
 }
 
 #phone {
-    -vendor-animation-duration: 10s;
+    -webkit-animation-duration: 1s;
+}
+
+#under-title {
+    -webkit-animation-duration: 100m;
 }
