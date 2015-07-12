@@ -45,13 +45,12 @@ module.exports = function(app, async, request, conn, cps, twitter, bodyParser) {
             if (!err) {
                 var u = response.results.document[0];
                 var search_req = new cps.SearchRequest(cps.Term('activity', "type")+" "+cps.Term(user, 'user'));
-                search_req.setDocs(10000);
                 conn.sendRequest(search_req, function (err, response) {
                     console.log('USER EXISTS SENDING INFORMATION');
                     if(response) {
                         u.activities = response.results.document;
                     }
-                    res.send({});
+                    res.send(u);
                 });
             } else {
                 console.log('USER DOES NOT EXISTS');
@@ -119,7 +118,6 @@ module.exports = function(app, async, request, conn, cps, twitter, bodyParser) {
         var query_string = "{" + user_string + "}";
         // Create search object and output response JSON
         var search_req = new cps.SearchRequest(query_string);
-        search_req.setDocs(1000);
         conn.sendRequest(search_req, function(err, response) {
             if(!err) {
                 res.send(response.results.document);
@@ -144,7 +142,6 @@ module.exports = function(app, async, request, conn, cps, twitter, bodyParser) {
         var lng = req.query.lng;
         var r = req.query.r;
         var search_req = new cps.SearchRequest("  &gt;&lt;circle", 0, 5);
-        search_req.setDocs(1000);
         search_req.setParam("shapes", "<circle><center>"+lat+" "+lng+"</center><radius>"+r+" mi</radius><coord1_tag_name>lat</coord1_tag_name><coord2_tag_name>lng</coord2_tag_name></circle>");
         // Create search object and output response JSON
         conn.sendRequest(search_req, function(err, response) {
