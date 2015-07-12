@@ -16,12 +16,12 @@ module.exports = function(app, async, request, conn, cps, twitter, bodyParser) {
     app.post('/createUser',jsonParser, function(req, res) {
         // Grabs twitter handle of user to create
         var loggedUser = parseAuth(req.get('Authorization')); 
-        var data = JSON.stringify(req.body.friends);
-        console.log(data);
+        var data = JSON.stringify(req.body);
+        var friends = JSON.stringify(req.body.friends);
+        var photo_url = req.body.twitter_photo;
         var id = loggedUser;
         var insert_req = new cps.InsertRequest(
-            '<document><id>'+id+'</id>'+cps.Term(" ", "name")+cps.Term(" ", "twitter_photo")+cps.Term("user", "type")+cps.Term(" ", "oauth_token")+cps.Term(" ", "refresh_token")+cps.Term(data, "friends")+cps.Term(" ", "upVotes")+cps.Term(" ", "downVotes")+'</document>');
-        console.log(insert_req);
+            '<document><id>'+id+'</id>'+cps.Term(" ", "name")+cps.Term(photo_url, "twitter_photo")+cps.Term("user", "type")+cps.Term(" ", "oauth_token")+cps.Term(" ", "refresh_token")+cps.Term(friends, "friends")+cps.Term(" ", "upVotes")+cps.Term(" ", "downVotes")+'</document>');
         conn.sendRequest(insert_req, function(err, response) {
             if (!err) {
                res.sendStatus(200);
@@ -36,14 +36,20 @@ module.exports = function(app, async, request, conn, cps, twitter, bodyParser) {
     ///         GET USER              ///
     /////////////////////////////////////
     app.get('/user', function(req, res) {
+        console.log(req.get('Authorization'));
         var loggedUser = parseAuth(req.get('Authorization'));
         var user = req.query.user;
         // Build the query for user
-        var search_req = new cps.SearchRequest(cps.Term(user, "id"));
+        var search_req = new cps.SearchRequest(cps.Term('user', "type")+" "+cps.Term(user, 'id'));
         conn.sendRequest(search_req, function (err, response) {
             if (!err) {
-                console.log('USER EXISTS SENDING INFORMATION');
-                res.send(response.results.document[0]);
+                var u = response.results.document[0];
+                var search_req = new cps.SearchRequest(cps.Term('activity', "type")+" "+cps.Term(user, 'user'));
+                conn.sendRequest(search_req, function (err, response) {
+                    console.log('USER EXISTS SENDING INFORMATION');
+                    u.activities = response.results.document;
+                    res.send(u);
+                });
             } else {
                 console.log('USER DOES NOT EXISTS');
                 res.sendStatus(400);
