@@ -1,31 +1,99 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset=utf-8 />
-<title>Leaflet Markercluster</title>
-<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-<script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
-<link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
-<style>
-  body { margin:0; padding:0; }
-  #map { position:absolute; top:0; bottom:0; width:100%; }
-</style>
+    <meta charset=utf-8 />
+    <title>Leaflet Markercluster</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <style>
+
+    </style>
 </head>
 <body>
-<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js'></script>
-<script src='js/jquery.min.js'></script>
-<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css' rel='stylesheet' />
-<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.Default.css' rel='stylesheet' />
+    <section class="hero">
+        <div class="container">
+            <div class="row">
+                <div class="hero-info col-xs-10 col-xs-offset-1">
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <img class="hero-title" src="images/bitter_title.png"/>
+                            <h2>Making the world a bitter place...</h2>
+                            <div class="buttons">
+                                <button class="learn-more">Learn More</button>
+                                <button class="download">Download</button>
+                            </div>
+                        </div>
+                        <img class="col-xs-4" src="images/iphone_mock.png"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- Example data. -->
-<script src="js/sample_data.js"></script>
+    <section class="app-info">
+        <div class="container">
+            <div class="row row1">
+                <img class="pic1 col-xs-3 col-xs-offset-1" src="images/pic01.png"/>
+                <div class="info1 col-xs-7">
+                    <h2>Upboat things that make you happy</h2>
+                    <p>Paradigm shift seed round funding product management android non-disclosure agreement marketing low hanging fruit pivot customer bootstrapping success gamification. </p>
+                </div>
+            </div>
 
-<div id='map'></div>
+            <div class="row row2">
+                <div class="info2 col-xs-7 col-xs-offset-1">
+                    <h2>Find the best places around you</h2>
+                    <p>Client seed money MVP paradigm shift A/B testing iPad bandwidth product management return on investment. Series A financing release interaction design buyer. Conversion iteration non-disclosure agreement stock.</p>
+                </div>
+                <img class="pic2 col-xs-3" src="images/pic02.png"/>
+            </div>
 
-<script>
-L.mapbox.accessToken = 'pk.eyJ1IjoiY2hhcmxlc2xhaSIsImEiOiJkNTA0YzU4NzY0YWQ2MzcwYmEwMGU1NmEwZjMwZDllNyJ9.mGudpKLGaugdbRUuNWHc8g';
+            <div class="row row3">
+                <img class="pic3 col-xs-3 col-xs-offset-1" src="images/pic03.png"/>
+                <div class="info3 col-xs-7">
+                    <h2>Downboat the shittier things</h2>
+                    <p>IPad holy grail crowdsource ramen customer network effects agile development technology. Marketing crowdfunding incubator assets channels influencer facebook. Bandwidth gamification ecosystem channels agile development entrepreneur early adopters. </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="map-info">
+        <div class="map-title">
+            <h2>Connecting Places a Bit at a Time…</h2>
+        </div>
+
+        <div id='map'></div>
+
+        <div class="action-call">
+            <img class="lemon-drop" src="images/lemon_drop.png"/>
+
+            <h2>Discover the bitter, sweet world today…</h2>
+
+            <button>DOWNLOAD NOW</button>
+
+        </div>
+    </section>
+
+
+
+    <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js'></script>
+    <script src='js/jquery.min.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css' rel='stylesheet' />
+    <link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.Default.css' rel='stylesheet' />
+
+    <!-- Example data. -->
+    <script src="js/sample_data.js"></script>
+
+
+    <script>
+    L.mapbox.accessToken = 'pk.eyJ1IjoiY2hhcmxlc2xhaSIsImEiOiJkNTA0YzU4NzY0YWQ2MzcwYmEwMGU1NmEwZjMwZDllNyJ9.mGudpKLGaugdbRUuNWHc8g';
     var map = L.mapbox.map('map', 'mapbox.streets')
-        .setView([56.937, 23.919], 14);
+    .setView([56.937, 23.919], 14);
 
     var markers = new L.MarkerClusterGroup();
     var clusterPoints = []
@@ -33,61 +101,61 @@ L.mapbox.accessToken = 'pk.eyJ1IjoiY2hhcmxlc2xhaSIsImEiOiJkNTA0YzU4NzY0YWQ2MzcwY
         url: 'http://bitter.ngrok.com/allactivity',
         type: 'GET'
     })
-    // SUCCESS: USE CLUSTERPOINTS
-    .done(function(response) {
-        for (var i = 0; i < response.length; i++) {
-            var activity = response[i];
-            var vote = activity["vote"];
-            var lat = activity["lat"];
-            var lng = activity["lng"];
-            console.log(lat);
-            var title = "Check it out!";
-            if (vote && lat && lng){
-                var marker = L.marker(new L.LatLng(lat, lng), {
-                    icon: L.mapbox.marker.icon({'marker-symbol': 'circle', 'marker-color': '37B8AF'}),
-                    title: title
-                });
+        // SUCCESS: USE CLUSTERPOINTS
+        .done(function(response) {
+            for (var i = 0; i < response.length; i++) {
+                var activity = response[i];
+                var vote = activity["vote"];
+                var lat = activity["lat"];
+                var lng = activity["lng"];
+                console.log(lat);
+                var title = "Check it out!";
+                if (vote && lat && lng){
+                    var marker = L.marker(new L.LatLng(lat, lng), {
+                        icon: L.mapbox.marker.icon({'marker-symbol': 'circle', 'marker-color': '37B8AF'}),
+                        title: title
+                    });
+                }
+                else {
+                    var marker = L.marker(new L.LatLng(lat, lng), {
+                        icon: L.mapbox.marker.icon({'marker-symbol': 'cross', 'marker-color': 'F17279'}),
+                        title: title
+                    });
+                }
+                marker.bindPopup(title);
+                markers.addLayer(marker);
+            }    
+        })
+        // FAILURE: USE SAMPLE DATA POINTS
+        .fail(function(error) {
+            console.log(error);
+            console.log("Using backup sample data....");
+            for (var i = 0; i < addressPoints.length; i++) {
+                var a = addressPoints[i];
+                console.log(a);
+                var vote = a[2];
+                var title = "Check it out!";
+                if (vote){
+                    var marker = L.marker(new L.LatLng(a[0], a[1]), {
+                        icon: L.mapbox.marker.icon({'marker-symbol': 'circle', 'marker-color': '37B8AF'}),
+                        title: title
+                    });
+                }
+                else {
+                    var marker = L.marker(new L.LatLng(a[0], a[1]), {
+                        icon: L.mapbox.marker.icon({'marker-symbol': 'cross', 'marker-color': 'F17279'}),
+                        title: title
+                    });
+                }
+                marker.bindPopup(title);
+                markers.addLayer(marker);
             }
-            else {
-                var marker = L.marker(new L.LatLng(lat, lng), {
-                    icon: L.mapbox.marker.icon({'marker-symbol': 'cross', 'marker-color': 'F17279'}),
-                    title: title
-                });
-            }
-            marker.bindPopup(title);
-            markers.addLayer(marker);
-        }    
-    })
-    // FAILURE: USE SAMPLE DATA POINTS
-    .fail(function(error) {
-        console.log(error);
-        console.log("Using backup sample data....");
-        for (var i = 0; i < addressPoints.length; i++) {
-            var a = addressPoints[i];
-            console.log(a);
-            var vote = a[2];
-            var title = "Check it out!";
-            if (vote){
-                var marker = L.marker(new L.LatLng(a[0], a[1]), {
-                    icon: L.mapbox.marker.icon({'marker-symbol': 'circle', 'marker-color': '37B8AF'}),
-                    title: title
-                });
-            }
-            else {
-                var marker = L.marker(new L.LatLng(a[0], a[1]), {
-                    icon: L.mapbox.marker.icon({'marker-symbol': 'cross', 'marker-color': 'F17279'}),
-                    title: title
-                });
-            }
-            marker.bindPopup(title);
-            markers.addLayer(marker);
-        }
-    })
-    .always(function() {
-        console.log("complete");
-    });
+        })
+        .always(function() {
+            console.log("complete");
+        });
 
-    map.addLayer(markers);
-</script>
-</body>
-</html>
+        map.addLayer(markers);
+        </script>
+    </body>
+    </html>
