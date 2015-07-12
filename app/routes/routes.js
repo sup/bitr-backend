@@ -16,51 +16,15 @@ module.exports = function(app, async, request, conn, cps, twitter, bodyParser) {
     app.post('/createUser',jsonParser, function(req, res) {
         // Grabs twitter handle of user to create
         var loggedUser = parseAuth(req.get('Authorization')); 
-        var data = req.body;
+        var data = JSON.stringify(req.body.friends);
         console.log(data);
         var id = loggedUser;
         var insert_req = new cps.InsertRequest(
-            '<document><id>'+id+'</id>'+cps.Term(" ", "name")+cps.Term(" ", "twitter_photo")+cps.Term("user", "type")+cps.Term(" ", "oauth_token")+cps.Term(" ", "refresh_token")+cps.Term(" ", "friends")+cps.Term(" ", "upVotes")+cps.Term(" ", "downVotes")+'</document>');
+            '<document><id>'+id+'</id>'+cps.Term(" ", "name")+cps.Term(" ", "twitter_photo")+cps.Term("user", "type")+cps.Term(" ", "oauth_token")+cps.Term(" ", "refresh_token")+cps.Term(data, "friends")+cps.Term(" ", "upVotes")+cps.Term(" ", "downVotes")+'</document>');
         console.log(insert_req);
         conn.sendRequest(insert_req, function(err, response) {
             if (!err) {
-                // Find their friends
-                var client = new twitter({ 
-                    consumer_key: clientKey,
-                    consumer_secret: clientSecret,
-                    access_token_key: data.access_token_key,
-                    access_token_secret: data.access_token_secret 
-                });
-                
-               var params = {
-                    count: 200
-               };
-
-               client.get('friends/list', params, function(error, tweets, response) {
-                    if (!error) {
-                        var friendsArray = [];
-                        for( var i = 0; i< tweets.users.length; i++) {
-                            var friendsObj = {
-                                name: tweets.users[i].name ,
-                                id: tweets.users[i].screen_name
-                            };
-                            console.log(friendsObj);
-                            friendsArray.push(friendsObj);
-                        }
-                        var replace_request = new cps.PartialReplaceRequest({ id: loggedUser, friends : friendsArray});
-                            conn.sendRequest(replace_request, function (err, replace_resp) {
-                            if (!err) {
-                                res.send('hi');
-                            } else {
-                                res.sendStatus(400);
-                            }
-                        }, 'json');
-                    } else {
-                        console.log("TWITTER ERROR");
-                        console.log(error);
-                        res.sendStatus(400);
-                    }
-               });
+               res.sendStatus(200);
             } else {
                 console.log(err);
                 res.sendStatus(400);
