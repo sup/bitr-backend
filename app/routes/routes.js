@@ -45,6 +45,7 @@ module.exports = function(app, async, request, conn, cps, twitter, bodyParser) {
             if (!err) {
                 var u = response.results.document[0];
                 var search_req = new cps.SearchRequest(cps.Term('activity', "type")+" "+cps.Term(user, 'user'));
+                search_req.setDocs(10000);
                 conn.sendRequest(search_req, function (err, response) {
                     console.log('USER EXISTS SENDING INFORMATION');
                     u.activities = response.results.document;
