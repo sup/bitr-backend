@@ -28,7 +28,7 @@
                                 <button class="download">Download</button>
                             </div>
                         </div>
-                        <img class="col-xs-4 animated fadeInUp" src="images/iphone_mock.png"/>
+                        <img id="phone" class="col-xs-4 animated fadeInUp" src="images/iphone_mock.png"/>
                     </div>
                 </div>
             </div>
@@ -93,72 +93,70 @@
 
 
     <script>
-        $(document).ready(function() {
-            L.mapbox.accessToken = 'pk.eyJ1IjoiY2hhcmxlc2xhaSIsImEiOiJkNTA0YzU4NzY0YWQ2MzcwYmEwMGU1NmEwZjMwZDllNyJ9.mGudpKLGaugdbRUuNWHc8g';
-            var map = L.mapbox.map('map', 'mapbox.streets')
-            .setView([56.937, 23.919], 14);
+    L.mapbox.accessToken = 'pk.eyJ1IjoiY2hhcmxlc2xhaSIsImEiOiJkNTA0YzU4NzY0YWQ2MzcwYmEwMGU1NmEwZjMwZDllNyJ9.mGudpKLGaugdbRUuNWHc8g';
+    var map = L.mapbox.map('map', 'mapbox.streets')
+    .setView([56.937, 23.919], 14);
 
-            var markers = new L.MarkerClusterGroup();
-            var clusterPoints = []
-            $.ajax({
-                url: '/allactivity',
-                type: 'GET'
-            })
-                // SUCCESS: USE CLUSTERPOINTS
-                .done(function(response) {
-                    for (var i = 0; i < response.length; i++) {
-                        var activity = response[i];
-                        var vote = activity["vote"];
-                        var lat = activity["lat"];
-                        var lng = activity["lng"];
-                        var title = "Check it out!";
-                        if (vote){
-                            var marker = L.marker(new L.LatLng(lat, lng), {
-                                icon: L.mapbox.marker.icon({'marker-symbol': 'circle', 'marker-color': '37B8AF'}),
-                                title: title
-                            });
-                        }
-                        else {
-                            var marker = L.marker(new L.LatLng(lat, lng), {
-                                icon: L.mapbox.marker.icon({'marker-symbol': 'cross', 'marker-color': 'F17279'}),
-                                title: title
-                            });
-                        }
-                        marker.bindPopup(title);
-                        markers.addLayer(marker);
-                    }    
-                })
-                // FAILURE: USE SAMPLE DATA POINTS
-                .fail(function(error) {
-                    console.log(error);
-                    console.log("Using backup sample data....");
-                    for (var i = 0; i < addressPoints.length; i++) {
-                        var a = addressPoints[i];
-                        console.log(a);
-                        var vote = a[2];
-                        var title = "Check it out!";
-                        if (vote){
-                            var marker = L.marker(new L.LatLng(a[0], a[1]), {
-                                icon: L.mapbox.marker.icon({'marker-symbol': 'circle', 'marker-color': '37B8AF'}),
-                                title: title
-                            });
-                        }
-                        else {
-                            var marker = L.marker(new L.LatLng(a[0], a[1]), {
-                                icon: L.mapbox.marker.icon({'marker-symbol': 'cross', 'marker-color': 'F17279'}),
-                                title: title
-                            });
-                        }
-                        marker.bindPopup(title);
-                        markers.addLayer(marker);
-                    }
-                })
-                .always(function() {
-                    console.log("complete");
-                });
-
-                map.addLayer(markers);
+    var markers = new L.MarkerClusterGroup();
+    var clusterPoints = []
+    $.ajax({
+        url: '/allactivity',
+        type: 'GET'
+    })
+        // SUCCESS: USE CLUSTERPOINTS
+        .done(function(response) {
+            for (var i = 0; i < response.length; i++) {
+                var activity = response[i];
+                var vote = activity["vote"] === "true";
+                var lat = activity["lat"];
+                var lng = activity["lng"];
+                var title = "Check it out!";
+                if (vote){
+                    var marker = L.marker(new L.LatLng(lat, lng), {
+                        icon: L.mapbox.marker.icon({'marker-symbol': 'circle', 'marker-color': '37B8AF'}),
+                        title: title
+                    });
+                }
+                else {
+                    var marker = L.marker(new L.LatLng(lat, lng), {
+                        icon: L.mapbox.marker.icon({'marker-symbol': 'cross', 'marker-color': 'F17279'}),
+                        title: title
+                    });
+                }
+                marker.bindPopup(title);
+                markers.addLayer(marker);
+            }    
+        })
+        // FAILURE: USE SAMPLE DATA POINTS
+        .fail(function(error) {
+            console.log(error);
+            console.log("Using backup sample data....");
+            for (var i = 0; i < addressPoints.length; i++) {
+                var a = addressPoints[i];
+                console.log(a);
+                var vote = a[2];
+                var title = "Check it out!";
+                if (vote){
+                    var marker = L.marker(new L.LatLng(a[0], a[1]), {
+                        icon: L.mapbox.marker.icon({'marker-symbol': 'circle', 'marker-color': '37B8AF'}),
+                        title: title
+                    });
+                }
+                else {
+                    var marker = L.marker(new L.LatLng(a[0], a[1]), {
+                        icon: L.mapbox.marker.icon({'marker-symbol': 'cross', 'marker-color': 'F17279'}),
+                        title: title
+                    });
+                }
+                marker.bindPopup(title);
+                markers.addLayer(marker);
+            }
+        })
+        .always(function() {
+            console.log("complete");
         });
-    </script>
+
+        map.addLayer(markers);
+        </script>
     </body>
     </html>

@@ -142,6 +142,7 @@ button {
 
 .lemon-drop {
     width: 100px;
+    margin-top: 50px
 }
 
 .semi-title {
@@ -152,4 +153,8 @@ button {
 
 p {
     font-family: 'Oswald', sans-serif;
+}
+
+#phone {
+    -vendor-animation-duration: 10s;
 }
