@@ -19,7 +19,6 @@ $(document).ready(function() {
 
     map.on('locationfound', function(e) {
         map.fitBounds(e.bounds);
-        map.setView(map.latlng, map.getZoom() - 1);
 
         myLayer.setGeoJSON({
             type: 'Feature',
