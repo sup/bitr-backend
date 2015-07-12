@@ -51,7 +51,9 @@ module.exports = function(app, async, request, conn, cps, twitter, bodyParser) {
                         u.activities = response.results.document;
                     } else {
                         u.activities = [];   
+                        console.log(u.activities);
                     }
+                    
                     res.send(u);
                 });
             } else {
