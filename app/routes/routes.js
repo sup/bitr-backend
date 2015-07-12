@@ -1,5 +1,8 @@
 module.exports = function(app, async, request, conn, cps, twitter, bodyParser) {
 
+    var jsonParser = bodyParser.json();
+    var clientKey = process.env.TWITTER_CLIENT_KEY;
+    var clientSecret = process.env.TWITTER_CLIENT_SECRET;
     ////////////////////////////////////
     ///        LANDING PAGE          ///
     ////////////////////////////////////
@@ -10,11 +13,11 @@ module.exports = function(app, async, request, conn, cps, twitter, bodyParser) {
     /////////////////////////////////////
     ///         CREATE USER           ///
     /////////////////////////////////////
-    app.post('/createUser', function(req, res) {
+    app.post('/createUser',jsonParser, function(req, res) {
         // Grabs twitter handle of user to create
         var loggedUser = parseAuth(req.get('Authorization')); 
-        console.log(loggedUser);
-        console.log(twitter);
+        var data = req.body;
+        console.log(data);
         var id = loggedUser;
         var insert_req = new cps.InsertRequest(
             '<document><id>'+id+'</id>'+cps.Term(" ", "name")+cps.Term(" ", "twitter_photo")+cps.Term("user", "type")+cps.Term(" ", "oauth_token")+cps.Term(" ", "refresh_token")+cps.Term(" ", "friends")+cps.Term(" ", "upVotes")+cps.Term(" ", "downVotes")+'</document>');
@@ -23,6 +26,10 @@ module.exports = function(app, async, request, conn, cps, twitter, bodyParser) {
             if (!err) {
                 // Find their friends
                 var client = new twitter({ 
+                    consumer_key: clientKey,
+                    consumer_secret: clientSecret,
+                    access_token_key: data.access_token_key,
+                    access_token_secret: data.access_token_secret 
                 });
                 
                var params = {
@@ -43,7 +50,7 @@ module.exports = function(app, async, request, conn, cps, twitter, bodyParser) {
                         var replace_request = new cps.PartialReplaceRequest({ id: loggedUser, friends : friendsArray});
                             conn.sendRequest(replace_request, function (err, replace_resp) {
                             if (!err) {
-                                res.sendStatus(200);
+                                res.send('hi');
                             } else {
                                 res.sendStatus(400);
                             }
@@ -145,6 +152,7 @@ module.exports = function(app, async, request, conn, cps, twitter, bodyParser) {
             }
             else {
                 console.log(err);
+                res.sendStatus(400);
             }
         });
     });
@@ -236,6 +244,7 @@ module.exports = function(app, async, request, conn, cps, twitter, bodyParser) {
                     var activity_id = logged_user + timestamp;
                     var activity_document = '<document>'+
                                                 cps.Term(activity_id, "id") +
+                                                cps.Term("activity", "type") +
                                                 cps.Term(logged_user, "user") +
                                                 cps.Term(vote, "vote") +
                                                 cps.Term(0, "score") +
@@ -263,6 +272,22 @@ module.exports = function(app, async, request, conn, cps, twitter, bodyParser) {
                 console.log(err);
             }
         });
+    });
+
+    ///////////////////////////////////////
+    ///       GET ALL ACTIVITY          ///
+    ///////////////////////////////////////
+    app.get('/allactivity', function(req, res) {
+        var search_req = new cps.SearchRequest(cps.Term("activity", "type"));
+        search_req.setDocs(10000);
+        conn.sendRequest(search_req, function (err, response) {
+        if (!err) {
+            console.log("PASSED ALL ACTIVITY");
+            res.send(response.results.document);
+        } else {
+            res.sendStatus(400);
+        }
+        }); 
     });
 
     function parseAuth(loggedUser) {
